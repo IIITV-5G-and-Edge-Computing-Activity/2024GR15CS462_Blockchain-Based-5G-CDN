@@ -12,8 +12,12 @@
   "dependencies": {
     "dotenv": "^16.4.7",
     "ethers": "^6.13.5",
+    "hls.js": "^1.5.20",
+    "plyr-react": "^5.3.0",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "react-player": "^2.16.0",
+    "video.js": "^8.22.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",
