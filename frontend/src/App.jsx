@@ -3,8 +3,11 @@ import { ethers } from "ethers";
 import VideoPlayer from "./VideoPlayer";
 import VideoCDN from "../../artifacts/contracts/VideoCDN.sol/VideoCDN.json";
 import "./App.css";
+import config from "./config";
 
-const contractAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
+
+
+const contractAddress = config.CONTRACT_ADDRESS;
 
 function App() {
   const [account, setAccount] = useState(null);
@@ -109,9 +112,9 @@ function App() {
         {
           method: "POST",
           headers: {
-            pinata_api_key: "a7c5a92a2797d2a10603",
+            pinata_api_key: config.PINATA_API_KEY,
             pinata_secret_api_key:
-              "d1ad1d6987de8b2eb0b50a1c1dc5a321452f2ea3e8a0c948b42ef23688754720",
+             config.PINATA_SECRET_KEY,
           },
           body: formData,
         }
