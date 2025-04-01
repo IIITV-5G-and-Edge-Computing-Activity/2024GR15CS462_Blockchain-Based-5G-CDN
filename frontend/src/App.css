@@ -32,7 +32,7 @@
   
   /* Sidebar */
   .sidebar {
-    width: 80px;
+    width: 95px;
     position: fixed;
     left: 0;
     top: 0;
@@ -58,12 +58,37 @@
     font-size: 20px;
     font-weight: bold;
     color: black;
+    transition: all 0.3s ease-in-out;
+  }
+
+   
+  .logo:hover {
+    color: white;
+    background-color: black;
+
   }
   
   .sidebar-icon {
+    width: 50px;  /* Adjust size as needed */
+    height: 50px; /* Ensure it's a perfect circle */
+    display: flex;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
     color: white;
-  }
+    margin: 4px 0px;
+    transition: all 0.3s ease-in-out;
+    border-radius: 50%; /* Makes it a circle */
+}
+
+.sidebar-icon:hover {
+    background: rgba(255, 255, 255, 0.2); /* Semi-transparent white */
+    backdrop-filter: blur(10px); /* Glass effect */
+    box-shadow: 0 4px 6px rgba(255, 255, 255, 0.1); /* Light shadow */
+}
+
+
+  
   
   /* Main Content */
   .main {
@@ -83,9 +108,11 @@
     align-items: center;
     background: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(10px);
-    padding: 8px 15px;
+    padding: 13px 15px;
     border-radius:100px;
+    font-size: 20px;
   }
+
   
   .search-input {
     flex-grow: 1;
@@ -98,7 +125,7 @@
   
   /* Content */
   .movie-info {
-  
+    
     margin-top: 23%;
     display: flex;
     gap: 10px;
@@ -236,3 +263,77 @@
     cursor: pointer;
   }
   
+
+  .dropdown-container {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: #222;
+    border-radius: 5px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    width: 150px;
+    z-index: 1000;
+  }
+  
+  .dropdown-item {
+    padding: 10px;
+    color: white;
+    cursor: pointer;
+  }
+  
+  .dropdown-item:hover {
+    background: #333;
+  }
+  
+  .dropdown-item.selected {
+    background: #444;
+  }
+  
+
+
+  .welcome-content{
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    background: rgba(0, 0, 0, 0.7); 
+    color: white;
+    padding: 25px;
+    z-index: 4;
+  }
+
+  .welcome-page img {
+    position: fixed;  /* Ensures the background fills the whole screen */
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover; /* Makes sure the image fully covers the background */
+    z-index: -1;
+  }
+
+  .welcome-content h1{
+    margin-bottom: 10px;
+  }
+  
+  
+
+  .acc-connect{
+    position: absolute;
+    z-index: 2;
+    left: 7%;
+    top: 6.5%;
+    font-size: medium;
+    font-weight: bold;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    padding:15px ;
+    border-radius: 100px;
+  }

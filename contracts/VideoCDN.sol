@@ -4,15 +4,21 @@ pragma solidity ^0.8.20;
 contract VideoCDN {
     struct Video {
         address owner;
-        uint256 price; 
+        uint256 price;
         string ipfsHash;
+        string title;
+        string subtitle;
+        string date;
+        string[] genres;
+        string image;
+        string trailer;
     }
 
     struct EdgeNode {
         bool isRegistered;
         uint256 earnings;
     }
-    
+
     mapping(uint256 => Video) public videos;
     mapping(address => EdgeNode) public edgeNodes;
     mapping(address => mapping(uint256 => bool)) public hasAccess;
@@ -31,9 +37,28 @@ contract VideoCDN {
         emit EdgeNodeRegistered(msg.sender);
     }
 
-    function uploadVideo(string memory _ipfsHash, uint256 _price) external {
+    function uploadVideo(
+        string memory _title,
+        string memory _subtitle,
+        string memory _date,
+        string[] memory _genres,
+        string memory _image,
+        string memory _ipfsHash,
+        uint256 _price,
+        string memory _trailer
+    ) external {
         videoCount++;
-        videos[videoCount] = Video(msg.sender, _price, _ipfsHash);
+        videos[videoCount] = Video(
+            msg.sender,
+            _price,
+            _ipfsHash,
+            _title,
+            _subtitle,
+            _date,
+            _genres,
+            _image,
+            _trailer
+        );
         emit VideoUploaded(videoCount, msg.sender, _ipfsHash, _price);
     }
 
