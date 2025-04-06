@@ -2,23 +2,33 @@ require("dotenv").config();
 const express = require("express");
 const http = require("http");
 const WebSocket = require("ws");
+const cors = require("cors");
 const { ethers } = require("ethers");
 
-// Express + HTTP Server
 const app = express();
-const server = http.createServer(app);
 
-// WebSocket Server
+// 🔓 Enable CORS for your frontend (Vite dev server)
+app.use(cors({
+  origin: "http://localhost:5173",
+  methods: ["GET", "POST"],
+  credentials: true
+}));
+
+app.use(express.json());
+const server = http.createServer(app);
 const wss = new WebSocket.Server({ server });
 let clients = new Set();
 
 // Blockchain Setup
 const contractAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
-const contractABI = require("../artifacts/contracts/VideoCDN.sol/VideoCDN.json"); // Place contract ABI in backend
-const provider = new ethers.JsonRpcProvider("http://127.0.0.1:8545"); // Hardhat/Polygon RPC
+const contractABI = require("../artifacts/contracts/VideoCDN.sol/VideoCDN.json");
+const provider = new ethers.JsonRpcProvider("http://127.0.0.1:8545");
 const contract = new ethers.Contract(contractAddress, contractABI.abi, provider);
 
-// WebSocket Connection Handling
+// Track Edge Nodes
+const EDGE_NODES = new Set();
+
+// WebSocket Handling
 wss.on("connection", (ws) => {
   console.log("🔗 New WebSocket connection");
   clients.add(ws);
@@ -29,7 +39,6 @@ wss.on("connection", (ws) => {
   });
 });
 
-// Broadcast function
 const broadcast = (data) => {
   clients.forEach((client) => {
     if (client.readyState === WebSocket.OPEN) {
@@ -38,7 +47,7 @@ const broadcast = (data) => {
   });
 };
 
-// 📡 Listen to Smart Contract Events
+// Contract Events
 contract.on("VideoUploaded", (owner, ipfsHash, price) => {
   console.log("🎥 Video Uploaded:", ipfsHash);
   broadcast({ type: "VIDEO_UPLOADED", owner, ipfsHash, price: ethers.formatEther(price) });
@@ -50,10 +59,32 @@ contract.on("VideoPurchased", (buyer, videoId) => {
 });
 
 contract.on("EdgeNodeRegistered", (node) => {
-  console.log("📡 New Edge Node Registered:", node);
+  console.log("📡 New Edge Node Registered on-chain:", node);
   broadcast({ type: "EDGE_NODE_REGISTERED", node });
 });
 
-// Start Express Server
-const PORT = 5000;
+// Edge Node IP Registration (manual)
+app.post("/register-edge", (req, res) => {
+  const { ip } = req.body;
+  if (!ip) return res.status(400).json({ error: "IP required" });
+  EDGE_NODES.add(ip);
+  console.log("🌐 Edge node IP added:", ip);
+  res.json({ status: "ok" });
+});
+
+// Return Edge Node for CID
+app.get("/edge-node/:cid", (req, res) => {
+  const { cid } = req.params;
+
+  if (EDGE_NODES.size === 0) {
+    return res.status(503).json({ error: "No edge nodes available" });
+  }
+
+  const nodes = Array.from(EDGE_NODES);
+  const selectedNode = nodes[Math.floor(Math.random() * nodes.length)];
+  res.json({ edgeNodeUrl: `http://${selectedNode}:8080/video/${cid}` });
+});
+
+// Start Server
+const PORT = 3000;
 server.listen(PORT, () => console.log(`🚀 Backend running on port ${PORT}`));

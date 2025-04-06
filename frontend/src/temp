@@ -1,0 +1,95 @@
+import React, { useEffect, useState } from "react";
+import { ethers } from "ethers";
+import VideoCDN from "../../artifacts/contracts/VideoCDN.sol/VideoCDN.json";
+
+const contractAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
+
+function App() {
+  const [account, setAccount] = useState("");
+  const [contract, setContract] = useState(null);
+  const [videos, setVideos] = useState([]);
+  const [cachedCIDs, setCachedCIDs] = useState([]);
+  const [selectedVideo, setSelectedVideo] = useState(null);
+
+  // MetaMask Connect
+  const connectWallet = async () => {
+    if (window.ethereum) {
+      const provider = new ethers.BrowserProvider(window.ethereum);
+      const signer = await provider.getSigner();
+      const address = await signer.getAddress();
+      setAccount(address);
+      const videoContract = new ethers.Contract(contractAddress, VideoCDN.abi, signer);
+      setContract(videoContract);
+    } else {
+      alert("MetaMask not found");
+    }
+  };
+
+  // Fetch cached CIDs from backend
+  const fetchCacheStatus = async () => {
+    const res = await fetch("http://localhost:3000/cache");
+    const data = await res.json();
+    setCachedCIDs(data.cachedCIDs || []);
+  };
+
+  // Fetch videos (simulate for now)
+  const loadVideos = () => {
+    const dummyVideos = [
+      { title: "Sample 1", cid: "QmCID1", price: "0.01" },
+      { title: "Sample 2", cid: "QmCID2", price: "0.02" }
+    ];
+    setVideos(dummyVideos);
+  };
+
+  const handlePlayVideo = async (cid) => {
+    try {
+      const res = await fetch(`http://localhost:3000/retrieve/${cid}`);
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
+      setSelectedVideo({ cid, url });
+    } catch (err) {
+      alert("Error fetching video");
+    }
+  };
+
+  useEffect(() => {
+    connectWallet();
+    fetchCacheStatus();
+    loadVideos();
+  }, []);
+
+  return (
+    <div className="p-4">
+      <h1 className="text-2xl font-bold mb-4">Decentralized Video CDN</h1>
+      {account ? <p className="text-green-600">Connected: {account}</p> : <button onClick={connectWallet}>Connect Wallet</button>}
+
+      <h2 className="mt-6 text-xl font-semibold">Videos</h2>
+      <div className="space-y-4 mt-2">
+        {videos.map((video) => (
+          <div key={video.cid} className="p-4 border rounded shadow">
+            <p className="font-medium">{video.title}</p>
+            <p className="text-sm text-gray-600">CID: {video.cid}</p>
+            <p className="text-sm">Price: {video.price} ETH</p>
+            {cachedCIDs.includes(video.cid) ? (
+              <p className="text-green-500 text-sm">Cached ✅</p>
+            ) : (
+              <p className="text-yellow-500 text-sm">Not Cached ❌</p>
+            )}
+            <button className="mt-2 px-4 py-1 bg-blue-500 text-white rounded" onClick={() => handlePlayVideo(video.cid)}>
+              Play
+            </button>
+          </div>
+        ))}
+      </div>
+
+      {selectedVideo && (
+        <div className="mt-6">
+          <h3 className="text-lg font-semibold">Now Playing (CID: {selectedVideo.cid})</h3>
+          <video controls src={selectedVideo.url} className="w-full max-w-3xl mt-2 rounded shadow" />
+        </div>
+      )}
+    </div>
+  );
+}
+
+export default App;
