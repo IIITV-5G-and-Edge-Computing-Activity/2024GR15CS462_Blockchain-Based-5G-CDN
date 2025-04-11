@@ -8,7 +8,7 @@ const { ethers } = require("ethers");
 const app = express();
 app.use(cors());
 
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 5000;
 const PINATA_GATEWAY = "https://gateway.pinata.cloud/ipfs";
 const BACKEND_SERVER = "http://localhost:3000"; // Adjust as needed
 

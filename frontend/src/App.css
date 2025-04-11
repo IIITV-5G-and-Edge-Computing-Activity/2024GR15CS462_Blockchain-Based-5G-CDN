@@ -12,6 +12,8 @@
     position: relative;
   }
   
+  
+
   /* Background */
   .background {
     position: absolute;
@@ -165,17 +167,35 @@
   }
   
   .primary {
-    background: red;
+    background: rgb(255, 0, 0);
     color: white;
     width: 150px;
+    height: 50px;
+    transition: all 0.2s ease-in-out;
+  }
+
+  .primary:hover {
+    background: rgb(0, 0, 0);
+    color: white;
+    border-radius: 10px;
     
   }
   
   .secondary {
     background: gray;
     color: white;
-    width: 100px;
+    width: 160px;
     padding-left:10px ;
+    padding-top: 11px;
+    height: 50px;
+    transition: all 0.2s ease-in-out;
+  }
+
+  .secondary:hover {
+    background: rgb(0, 0, 0);
+    color: white;
+    border-radius: 10px;
+    
   }
   
   /* Movie Slider */
@@ -246,15 +266,16 @@
   
   /* Floating Buttons */
   .action-buttons {
-    position: fixed;
-    bottom: 100px;
-    right: 80px;
+    position: absolute;
+    bottom: 10%;
+    right: 10%;
     display: flex;
     gap: 10px;
   }
   .circle-btn {
     width: 50px;
     height: 50px;
+    padding: 0px;
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.1);
     display: flex;
@@ -266,32 +287,49 @@
 
   .dropdown-container {
     position: relative;
-    display: inline-block;
+    display: flex;
   }
   
   .dropdown {
     position: absolute;
     top: 100%;
     left: 0;
-    background: #222;
-    border-radius: 5px;
+    border-radius: 50px;
+    background-color:#333;;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
-    width: 150px;
+    width: 160px;
+    margin-top: 3px;
     z-index: 1000;
+    
   }
   
-  .dropdown-item {
-    padding: 10px;
+  .dropdown-container p{
+
     color: white;
     cursor: pointer;
+    margin-top: 2.5px;
+    margin-left: 2px;
+
+  }
+
+  .dropdown-container .edge-btn{
+
+    color: white;
+    cursor: pointer;
+    margin-top: -3.5px;
+
   }
   
   .dropdown-item:hover {
-    background: #333;
+    background: #ffffff;
+    border-radius: 50px;
+    color: black;
   }
   
   .dropdown-item.selected {
-    background: #444;
+    border-radius: 10px;
+    padding: 10px;
+    
   }
   
 
@@ -337,3 +375,122 @@
     padding:15px ;
     border-radius: 100px;
   }
+
+
+  .popup-content-1{
+    /* display: flex; */
+    position: absolute;
+    width: 50%;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    padding: 20px;
+    border-radius: 50px;
+    top: 14%;
+    z-index: 4;
+  }
+
+
+  .popup-content-1 input{
+    margin: 5px;
+    border-radius: 10px;
+    height: 30px;
+    padding:5px ;
+    border: none;
+  outline: none;
+  box-shadow: none; 
+    
+  }
+
+
+  .popup-content-1 .headline{
+    display: flex;
+    margin: 10px;
+    gap: 10px;
+    text-transform: uppercase;
+    font-size: 18px;
+
+  }
+
+  .popup-content-1 .headline .close-btn{
+    height: 45px;
+    width: 45px;
+    padding: 1px;
+    border-radius: 50px;
+    background-color: black;
+  }
+
+  .popup-content-1 .upload-btn{
+    height: 45px;
+    width: 120px;
+    border-radius: 50px;
+    background-color: rgb(35, 135, 201);
+  }
+
+
+
+  .popup-content-1 input:focus {
+  /* custom focus style */
+  background-color: rgb(75, 79, 82);
+}
+
+
+.popup-content-2{
+  /* display: flex; */
+  width: 40%;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  padding: 20px;
+  border-radius: 50px;
+  position: absolute;
+  top: 14%;
+  z-index: 4;
+}
+
+.popup-content-2 .headline{
+  display: flex;
+  margin: 10px;
+  gap: 10px;
+  text-transform: uppercase;
+  font-size: 18px;
+
+}
+
+.popup-content-2 .headline .close-btn{
+  height: 45px;
+  width: 45px;
+  padding: 1px;
+  border-radius: 50px;
+  background-color: black;
+}
+
+.popup-content-2 p{
+  font-size: 40px;
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.popup-content-2 .upload-btn{
+  height: 45px;
+  width: 180px;
+  border-radius: 50px;
+  margin: 10px;
+  margin-left: 300px;
+  background-color: rgb(25, 189, 123);
+}
+
+
+.video-player-overlay .close-btn{
+  height: 45px;
+    width: 45px;
+    padding: 1px;
+    border-radius: 50px;
+    background-color: black;
+}
+
+.video-player-overlay p{
+    padding: 10px;
+    font-size: 50px;
+    text-transform: uppercase;
+    font-weight:bolder;
+}

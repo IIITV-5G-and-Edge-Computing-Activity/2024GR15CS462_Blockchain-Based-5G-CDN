@@ -6,6 +6,7 @@ import "./App.css";
 import config from "./config";
 
 import { motion } from "framer-motion";
+import { Md5G } from "react-icons/md";
 import {
   RiHome5Line,
   RiVideoLine,
@@ -18,7 +19,7 @@ import {
   RiFilterLine,
   RiCloseLine
 } from "react-icons/ri";
-import { SiHiveBlockchain } from "react-icons/si";
+import { SiHiveBlockchain, SiPolygon } from "react-icons/si";
 
 const contractAddress = config.CONTRACT_ADDRESS;
 
@@ -63,6 +64,7 @@ function App() {
 
 
 
+  
 
 
   useEffect(() => {
@@ -76,6 +78,8 @@ function App() {
       setSelectedMovie(movies[0]); // Set the first movie as default
     }
   }, [movies]);
+
+  
   
 
   const connectWallet = async () => {
@@ -441,10 +445,16 @@ function App() {
 }}>
           <RiHome5Line size={24} />
         </div>
-        <div className="sidebar-icon" onClick={() => setUploadPopup(true)}>
+        <div className="sidebar-icon" onClick={() => {
+    setUploadPopup(true);
+    setEarningsPopup(false); 
+  }}>
           <RiVideoLine size={24} />
         </div>
-        <div className="sidebar-icon" onClick={() => setEarningsPopup(true)}>
+        <div className="sidebar-icon" onClick={() => {
+    setEarningsPopup(true);
+    setUploadPopup(false); 
+  }}>
   <RiTrophyLine size={24} />
 </div>
 
@@ -465,8 +475,8 @@ function App() {
 
 {showPlayer && (
   <div className="video-player-overlay">
-    <button className="close-btn" onClick={() => setShowPlayer(false)}>✖ Close</button>
-    <p>IPFS Hash: {selectedMovie.ipfsHash}</p>
+    <button className="close-btn" onClick={() => setShowPlayer(false)}><RiCloseLine size={30} /></button>
+    <p>{selectedMovie.title}</p>
     <VideoPlayer ipfsHash={selectedMovie.ipfsHash}  />
   </div>
 )}
@@ -495,11 +505,14 @@ function App() {
 
         {uploadPopup && (
   <div className="upload-popup">
-    <div className="popup-content">
+    <div className="popup-content-1">
+      <div className="headline">
       <button className="close-btn" onClick={() => setUploadPopup(false)}>
-        <RiCloseLine size={24} />
+        <RiCloseLine size={30} />
       </button>
       <h2>Upload a Video</h2>
+      </div>
+      
 
       <input
         type="text"
@@ -569,15 +582,16 @@ function App() {
 
 {earningsPopup && (
   <div className="upload-popup">
-    <div className="popup-content">
-      <button className="close-btn" onClick={() => setEarningsPopup(false)}>
+    <div className="popup-content-2">
+    <div className="headline"> <button className="close-btn" onClick={() => setEarningsPopup(false)}>
         <RiCloseLine size={24} />
       </button>
       <h2>Edge Node Earnings</h2>
+       </div>      
 
       {edgeNode ? (
         <>
-          <p>Your Earnings: {earnings} MATIC</p>
+          <p>Current Ballance: {earnings} <SiPolygon /></p>
           <button className="upload-btn" onClick={claimEarnings}>
             Claim Earnings
           </button>
@@ -634,7 +648,7 @@ function App() {
   {!selectedMovie.purchased && (
     <div className="dropdown-container">
       <button className="btn secondary" onClick={() => setEdgeNodeDropdown(!edgeNodeDropdown)}>
-        {selectedEdgeNode ? `Edge Node: ${selectedEdgeNode.substring(0, 10)}` : "Select Edge Node"}
+      <Md5G className='edge-btn' size={35}/><p>{selectedEdgeNode ? `${selectedEdgeNode.substring(0, 10).toUpperCase()}` : "Edge Node"}</p>
       </button>
       {edgeNodeDropdown && (
         <div className="dropdown">
@@ -648,7 +662,7 @@ function App() {
                   setEdgeNodeDropdown(false);
                 }}
               >
-                {node.substring(0, 10)}
+                {node.substring(0, 10).toUpperCase()}
               </div>
             ))
           ) : (
@@ -725,59 +739,7 @@ function App() {
 
 
 
-          {/* <h2>Upload Video</h2>
-          <input
-            type="file"
-            accept="video/*"
-            onChange={(e) =>
-              setNewVideo({ ...newVideo, file: e.target.files[0] })
-            }
-          />
-          <input
-            type="text"
-            placeholder="Price in MATIC"
-            value={newVideo.price}
-            onChange={(e) =>
-              setNewVideo({ ...newVideo, price: e.target.value })
-            }
-          />
-          <button onClick={uploadVideo}>Upload</button>
-
-          <button onClick={registerEdgeNode} disabled={edgeNode}>
-            Register as Edge Node
-          </button>
-          {edgeNode && (
-            <button onClick={claimEarnings}>
-              Claim Earnings: {earnings} MATIC
-            </button>
-          )}
-
-          <h2>Available Videos</h2>
-          {videos.map((video) => (
-            <div key={video.id}>
-              <p>Owner: {video.owner}</p>
-              <p>Price: {video.price} MATIC</p>
-              {video.purchased ? (
-                <VideoPlayer ipfsHash={video.ipfsHash} />
-              ) : (
-                <>
-                  <label>Select Edge Node:</label>
-                  <select
-                    value={selectedEdgeNode}
-                    onChange={(e) => setSelectedEdgeNode(e.target.value)}
-                  >
-                    <option value="">-- Choose Edge Node --</option>
-                    {edgeNodes.map((node) => (
-                      <option key={node} value={node}>
-                        {node}
-                      </option>
-                    ))}
-                  </select>
-                  <button onClick={() => buyVideo(video.id)}>Buy</button>
-                </>
-              )}
-            </div>
-          ))} */}
+          
         </>
       )}
     </div>

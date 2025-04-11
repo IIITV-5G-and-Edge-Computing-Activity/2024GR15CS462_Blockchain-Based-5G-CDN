@@ -9,8 +9,7 @@ const app = express();
 
 // 🔓 Enable CORS for your frontend (Vite dev server)
 app.use(cors({
-  origin: "http://localhost:5173",
-  methods: ["GET", "POST"],
+  origin: '*',
   credentials: true
 }));
 
@@ -82,7 +81,7 @@ app.get("/edge-node/:cid", (req, res) => {
 
   const nodes = Array.from(EDGE_NODES);
   const selectedNode = nodes[Math.floor(Math.random() * nodes.length)];
-  res.json({ edgeNodeUrl: `http://${selectedNode}:8080/video/${cid}` });
+  res.json({ edgeNodeUrl: `http://${selectedNode}:5000/video/${cid}` });
 });
 
 // Start Server

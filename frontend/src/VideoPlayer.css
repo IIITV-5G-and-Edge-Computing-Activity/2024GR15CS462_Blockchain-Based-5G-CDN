@@ -1,0 +1,41 @@
+.container {
+    font-size: medium;
+    height: 60%;
+    width: 60%;
+    margin-left: 19%;
+    
+}
+
+
+.container h1{
+    text-transform: uppercase;
+    color: rgb(255, 255, 255);
+    font-size: 15px;
+    padding: 10px;
+    font-weight: 400;
+}
+
+.custom-player {
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgb(0, 0, 0);
+  }
+  
+  /* Optional: style the Plyr controls */
+  .plyr--video .plyr__controls {
+    /* background: rgba(0, 0, 0, 0.5);
+    border-radius: 0 0 20px 20px; */
+  }
+  
+  /* Change button color, etc. */
+  .plyr__control {
+    color: rgb(255, 255, 255);
+  }
+
+  :root {
+    --plyr-color-main: #ff0000;
+  }
+  
+  
+
+
