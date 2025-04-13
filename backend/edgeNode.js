@@ -10,7 +10,7 @@ app.use(cors());
 
 const PORT = process.env.PORT || 5000;
 const PINATA_GATEWAY = "https://gateway.pinata.cloud/ipfs";
-const BACKEND_SERVER = "http://localhost:3000"; // Adjust as needed
+const BACKEND_SERVER = "http://localhost:3000"; 
 
 const videoCache = new NodeCache({ stdTTL: 7200, checkperiod: 3600 });
 
@@ -21,7 +21,7 @@ const contractABI = require("../artifacts/contracts/VideoCDN.sol/VideoCDN.json")
 async function registerEdgeNode() {
   const signer = await provider.getSigner();
   const address = await signer.getAddress();
-  console.log(`🔑 Using signer address: ${address}`);
+  console.log(`Using signer address: ${address}`);
 
   const contract = new ethers.Contract(contractAddress, contractABI.abi, signer);
 
@@ -42,25 +42,25 @@ async function registerEdgeNode() {
   try {
     const tx = await contract.registerEdgeNode(); // On-chain registration
     await tx.wait();
-    console.log("✅ Edge Node registered on-chain");
+    console.log(" Edge Node registered on-chain");
   } catch (error) {
     const isAlreadyRegistered =
       error.reason === "Already registered" ||
       (error.errorName === "Error" && error.errorArgs?.[0] === "Already registered");
 
     if (isAlreadyRegistered) {
-      console.warn("⚠️ Edge Node already registered on-chain, continuing...");
+      console.warn(" Edge Node already registered on-chain, continuing...");
     } else {
-      console.error("❌ Registration failed:", error.message || error);
+      console.error(" Registration failed:", error.message || error);
       return;
     }
   }
 
   try {
     await axios.post(`${BACKEND_SERVER}/register-edge`, { ip: myIP });
-    console.log("✅ Edge Node Registered with backend:", myIP);
+    console.log(" Edge Node Registered with backend:", myIP);
   } catch (backendError) {
-    console.error("❌ Backend registration failed:", backendError.message || backendError);
+    console.error(" Backend registration failed:", backendError.message || backendError);
   }
 }
 
@@ -69,22 +69,23 @@ app.get("/video/:cid", async (req, res) => {
   const { cid } = req.params;
 
   if (videoCache.has(cid)) {
-    console.log(`⚡ Serving ${cid} from cache`);
+    console.log(` Serving ${cid} from cache`);
     return res.send(videoCache.get(cid));
   }
 
   try {
-    console.log(`📥 Fetching ${cid} from IPFS gateway...`);
+    console.log(` Fetching ${cid} from IPFS gateway...`);
     const response = await axios.get(`${PINATA_GATEWAY}/${cid}`, { responseType: "arraybuffer" });
     videoCache.set(cid, response.data);
     res.send(response.data);
   } catch (error) {
-    console.error("❌ Error fetching video:", error.message || error);
+    console.error(" Error fetching video:", error.message || error);
     res.status(500).json({ error: "Failed to retrieve video" });
   }
 });
 
+
 app.listen(PORT, async () => {
-  console.log(`🛰️ Edge Node Running on Port ${PORT}`);
+  console.log(` Edge Node Running on Port ${PORT}`);
   await registerEdgeNode();
 });

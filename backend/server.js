@@ -7,7 +7,7 @@ const { ethers } = require("ethers");
 
 const app = express();
 
-// 🔓 Enable CORS for your frontend (Vite dev server)
+// Enable CORS for your frontend (Vite dev server)
 app.use(cors({
   origin: '*',
   credentials: true
@@ -29,11 +29,11 @@ const EDGE_NODES = new Set();
 
 // WebSocket Handling
 wss.on("connection", (ws) => {
-  console.log("🔗 New WebSocket connection");
+  console.log(" New WebSocket connection");
   clients.add(ws);
 
   ws.on("close", () => {
-    console.log("❌ WebSocket disconnected");
+    console.log(" WebSocket disconnected");
     clients.delete(ws);
   });
 });
@@ -48,17 +48,17 @@ const broadcast = (data) => {
 
 // Contract Events
 contract.on("VideoUploaded", (owner, ipfsHash, price) => {
-  console.log("🎥 Video Uploaded:", ipfsHash);
+  console.log(" Video Uploaded:", ipfsHash);
   broadcast({ type: "VIDEO_UPLOADED", owner, ipfsHash, price: ethers.formatEther(price) });
 });
 
 contract.on("VideoPurchased", (buyer, videoId) => {
-  console.log("🛒 Video Purchased:", videoId);
+  console.log(" Video Purchased:", videoId);
   broadcast({ type: "VIDEO_PURCHASED", buyer, videoId });
 });
 
 contract.on("EdgeNodeRegistered", (node) => {
-  console.log("📡 New Edge Node Registered on-chain:", node);
+  console.log(" New Edge Node Registered on-chain:", node);
   broadcast({ type: "EDGE_NODE_REGISTERED", node });
 });
 
@@ -67,7 +67,7 @@ app.post("/register-edge", (req, res) => {
   const { ip } = req.body;
   if (!ip) return res.status(400).json({ error: "IP required" });
   EDGE_NODES.add(ip);
-  console.log("🌐 Edge node IP added:", ip);
+  console.log(" Edge node IP added:", ip);
   res.json({ status: "ok" });
 });
 
@@ -86,4 +86,4 @@ app.get("/edge-node/:cid", (req, res) => {
 
 // Start Server
 const PORT = 3000;
-server.listen(PORT, () => console.log(`🚀 Backend running on port ${PORT}`));
+server.listen(PORT, () => console.log(` Backend running on port ${PORT}`));

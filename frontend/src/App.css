@@ -291,6 +291,8 @@
   }
   
   .dropdown {
+    
+    padding: 10px;
     position: absolute;
     top: 100%;
     left: 0;
@@ -304,7 +306,7 @@
   }
   
   .dropdown-container p{
-
+    
     color: white;
     cursor: pointer;
     margin-top: 2.5px;
@@ -472,7 +474,7 @@
 
 .popup-content-2 .upload-btn{
   height: 45px;
-  width: 180px;
+  width: auto;
   border-radius: 50px;
   margin: 10px;
   margin-left: 300px;

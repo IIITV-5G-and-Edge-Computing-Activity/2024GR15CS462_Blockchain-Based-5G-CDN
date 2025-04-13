@@ -115,7 +115,7 @@ function App() {
       await checkEdgeNodeStatus(contractInstance, signer);
       await fetchEdgeNodes(contractInstance);
     } catch (error) {
-      console.error("❌ Error loading blockchain data:", error);
+      console.error(" Error loading blockchain data:", error);
     }
   };
 
@@ -140,11 +140,11 @@ function App() {
         })
       );
   
-      console.log("🎥 Updated Movies List:", loadedVideos);
+      console.log(" Updated Movies List:", loadedVideos);
   
-      setMovies(loadedVideos); // ✅ Ensures no duplicate movies
+      setMovies(loadedVideos); //    Ensures no duplicate movies
     } catch (error) {
-      console.error("❌ Error fetching videos:", error);
+      console.error(" Error fetching videos:", error);
     }
   };
   
@@ -155,10 +155,10 @@ function App() {
     if (!contractInstance || !account) return false;
     try {
       const access = await contractInstance.hasAccess(account, videoId);
-      console.log(`📺 Video ${videoId} access:`, access);
+      console.log(` Video ${videoId} access:`, access);
       return access;
     } catch (error) {
-      console.error(`❌ Error checking video access for Video ${videoId}:`, error);
+      console.error(` Error checking video access for Video ${videoId}:`, error);
       return false;
     }
   };
@@ -169,12 +169,12 @@ function App() {
   const { title, subtitle, date, genres, image, trailer, file, price } = newVideo;
 
   if (!title || !subtitle || !date || !genres || !image || !trailer || !file || !price) {
-    alert("⚠️ Please fill out all fields!");
+    alert(" Please fill out all fields!");
     return;
   }
 
   try {
-    // 1️⃣ Upload video file to IPFS
+    // 1️ Upload video file to IPFS
     const formData = new FormData();
     formData.append("file", file);
 
@@ -189,9 +189,9 @@ function App() {
 
     const videoData = await videoResponse.json();
     const videoIpfsHash = videoData.IpfsHash;
-    console.log("✅ Video uploaded to IPFS:", videoIpfsHash);
+    console.log(" Video uploaded to IPFS:", videoIpfsHash);
 
-    // 2️⃣ Store all metadata directly on-chain
+    //  Store all metadata directly on-chain
     const priceInWei = ethers.parseUnits(price.trim(), "ether");
     const genreArray = genres.map((g) => g.trim());
 
@@ -207,9 +207,9 @@ function App() {
     );
 
     await tx.wait();
-    console.log("📤 Video metadata stored on-chain!");
+    console.log(" Video metadata stored on-chain!");
 
-    // 🔄 Refresh the UI
+    //  Refresh the UI
     await loadVideos(contract);
 
     setNewVideo({
@@ -225,7 +225,7 @@ function App() {
 
     setUploadPopup(false);
   } catch (error) {
-    console.error("❌ Upload failed:", error);
+    console.error(" Upload failed:", error);
   }
 };
 
@@ -250,11 +250,11 @@ function App() {
 
   const buyVideo = async (videoId) => {
     if (!selectedEdgeNode) {
-      alert("⚠️ Please select an Edge Node!");
+      alert(" Please select an Edge Node!");
       return;
     }
     if (!selectedMovie || !selectedMovie.price) {
-      alert("⚠️ No video selected or video price missing!");
+      alert(" No video selected or video price missing!");
       return;
     }
   
@@ -271,13 +271,13 @@ function App() {
       // setSelectedMovie((prev) => ({ ...prev, purchased: true }));
       await loadVideos(contract); // Refresh videos list
 
-      // 🔄 Fetch updated edge node earnings
+      //  Fetch updated edge node earnings
       await checkEdgeNodeStatus(
         contract,
         await new ethers.BrowserProvider(window.ethereum).getSigner()
       );
     } catch (error) {
-      console.error("❌ Purchase failed:", error);
+      console.error(" Purchase failed:", error);
     }
   };
 
@@ -308,26 +308,26 @@ function App() {
         setEarnings(ethers.formatEther(node.earnings));
       }
     } catch (error) {
-      console.error("❌ Error checking edge node status:", error);
+      console.error(" Error checking edge node status:", error);
     }
   };
 
   const claimEarnings = async () => {
     try {
-      console.log("💸 Claiming earnings...");
+      console.log(" Claiming earnings...");
       const tx = await contract.withdrawEarnings();
       await tx.wait();
-      console.log("✅ Earnings claimed!");
+      console.log(" Earnings claimed!");
 
       alert("Earnings claimed!");
 
-      // 🔄 Refresh Edge Node Status to update earnings
+      //  Refresh Edge Node Status to update earnings
       await checkEdgeNodeStatus(
         contract,
         await new ethers.BrowserProvider(window.ethereum).getSigner()
       );
     } catch (error) {
-      console.error("❌ Claim earnings failed:", error);
+      console.error(" Claim earnings failed:", error);
     }
   };
 
@@ -360,6 +360,13 @@ function App() {
   // },
 
 
+
+  // The Beginning After the End
+  // Episode 1
+  // https://m.media-amazon.com/images/I/71W0OAilxgL._AC_UF1000,1000_QL80_.jpg
+  // Isekei, Fantasy
+  // Every Thursday
+  // 
 
 
 
@@ -530,7 +537,7 @@ function App() {
 
       <input
         type="text"
-        placeholder="Release Date (e.g., May 17, 2019)"
+        placeholder="Release Date"
         value={newVideo.date}
         onChange={(e) => setNewVideo({ ...newVideo, date: e.target.value })}
       />

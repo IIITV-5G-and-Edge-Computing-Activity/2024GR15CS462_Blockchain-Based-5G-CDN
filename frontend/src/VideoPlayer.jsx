@@ -13,7 +13,7 @@ const VideoPlayer = ({ ipfsHash }) => {
         const res = await axios.get(`http://localhost:3000/edge-node/${ipfsHash}`);
         setVideoUrl(res.data.edgeNodeUrl);
       } catch (err) {
-        console.error("❌ Could not fetch edge node. Falling back to IPFS.io");
+        console.error(" Could not fetch edge node. Falling back to IPFS.io");
         setVideoUrl(`https://ipfs.io/ipfs/${ipfsHash}`);
       }
     };
