@@ -381,21 +381,6 @@ function App() {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
       <div className="welcome-page">
   {account ? (
     showAccount ? (
@@ -484,7 +469,7 @@ function App() {
   <div className="video-player-overlay">
     <button className="close-btn" onClick={() => setShowPlayer(false)}><RiCloseLine size={30} /></button>
     <p>{selectedMovie.title}</p>
-    <VideoPlayer ipfsHash={selectedMovie.ipfsHash}  />
+    <VideoPlayer ipfsHash={selectedMovie.ipfsHash} edgeNode={selectedEdgeNode} />
   </div>
 )}
 
@@ -638,7 +623,13 @@ function App() {
          {/* Buy Now & Play Button */}
 <div className="buttons">
   {selectedMovie.purchased ? (
-    <button className="btn primary" onClick={() => setShowPlayer(true)}>
+    <button className="btn primary" onClick={() => {
+      if (!selectedEdgeNode) {
+        alert("Please select an Edge Node!");
+        return;
+      }
+      setShowPlayer(true);
+    }}>
       ▶ Play
     </button>
   ) : (
@@ -652,7 +643,7 @@ function App() {
   )}
 
   {/* Show Select Edge Node only if the video is not purchased */}
-  {!selectedMovie.purchased && (
+  { (
     <div className="dropdown-container">
       <button className="btn secondary" onClick={() => setEdgeNodeDropdown(!edgeNodeDropdown)}>
       <Md5G className='edge-btn' size={35}/><p>{selectedEdgeNode ? `${selectedEdgeNode.substring(0, 10).toUpperCase()}` : "Edge Node"}</p>

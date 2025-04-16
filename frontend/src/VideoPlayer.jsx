@@ -3,23 +3,22 @@ import Plyr from 'plyr-react';
 import 'plyr-react/plyr.css';
 import axios from 'axios';
 import "./VideoPlayer.css";
+import edgeNodeMap from './assets/edgeNodeMap'; 
 
-const VideoPlayer = ({ ipfsHash }) => {
+const VideoPlayer = ({ ipfsHash, edgeNode}) => {
   const [videoUrl, setVideoUrl] = useState("");
 
   useEffect(() => {
-    const fetchEdgeNode = async () => {
-      try {
-        const res = await axios.get(`http://localhost:3000/edge-node/${ipfsHash}`);
-        setVideoUrl(res.data.edgeNodeUrl);
-      } catch (err) {
-        console.error(" Could not fetch edge node. Falling back to IPFS.io");
-        setVideoUrl(`https://ipfs.io/ipfs/${ipfsHash}`);
-      }
-    };
-
-    fetchEdgeNode();
-  }, [ipfsHash]);
+    const nodeUrl = edgeNodeMap[edgeNode];
+    console.log(edgeNodeMap[edgeNode])
+    if (nodeUrl) {
+      setVideoUrl(`${nodeUrl}/video/${ipfsHash}`);
+    } else {
+      console.warn("Edge node not found. Falling back to IPFS.");
+      setVideoUrl(`https://ipfs.io/ipfs/${ipfsHash}`);
+    }
+  }, [ipfsHash, edgeNode]);
+  
 
   return (
     <div className='container'>
