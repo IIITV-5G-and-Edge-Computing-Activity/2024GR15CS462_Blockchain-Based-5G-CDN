@@ -21,7 +21,7 @@ if (!fs.existsSync(CACHE_DIR)) {
 }
 
 const provider = new ethers.JsonRpcProvider(process.env.JSONPROVIDERURI);
-const contractAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
+const contractAddress = process.env.CONTRACTADDRESS;
 const contractABI = require("./src/VideoCDN.json");
 
 // In-memory cache for video chunks (short TTL)
