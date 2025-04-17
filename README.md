@@ -163,7 +163,7 @@ node backend/server.js
 ```bash
 node backend/edgeNode.js
 ```
-> ⚠️ Note: This will start a single edge node server locally for testing purposes.
+> ⚠️ Note: This will start a single edge node server locally for testing purposes. Also, change IPs and Ports in `/frontend/src/assets/edgeNodeMap.js` accordingly 
 If you want to simulate multiple edge nodes, skip this step and follow the instructions in the [🐳 Dockerizing Edge Nodes](#-dockerizing-edge-nodes) section.
 
 ### 🎨 Start Frontend
