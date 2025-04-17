@@ -19,7 +19,7 @@ const wss = new WebSocket.Server({ server });
 let clients = new Set();
 
 // Blockchain Setup
-const contractAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
+const contractAddress = process.env.CONTRACT_ADDRESS;
 const contractABI = require("../artifacts/contracts/VideoCDN.sol/VideoCDN.json");
 const provider = new ethers.JsonRpcProvider("http://127.0.0.1:8545");
 const contract = new ethers.Contract(contractAddress, contractABI.abi, provider);

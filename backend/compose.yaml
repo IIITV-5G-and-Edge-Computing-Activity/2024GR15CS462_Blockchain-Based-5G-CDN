@@ -5,7 +5,7 @@ services:
     env_file:
       - .env
     environment:
-      - EDGE_NODE_WALLET_PRIVATE_KEY=${DOCKER_WALLET_ONE}
+      - EDGE_NODE_WALLET_PRIVATE_KEY=${DOCKER_WALLET_PRIVATE_KEY_ONE}
     ports:
       - "5001:5000"  # Mapping to different ports for each edge node
 
@@ -14,7 +14,7 @@ services:
     env_file:
       - .env
     environment:
-      - EDGE_NODE_WALLET_PRIVATE_KEY=${DOCKER_WALLET_TWO}
+      - EDGE_NODE_WALLET_PRIVATE_KEY=${DOCKER_WALLET_PRIVATE_KEY_TWO}
     ports:
       - "5002:5000"  # Mapping to different ports for each edge node
 
@@ -23,6 +23,6 @@ services:
     env_file:
       - .env
     environment:
-      - EDGE_NODE_WALLET_PRIVATE_KEY=${DOCKER_WALLET_THREE}
+      - EDGE_NODE_WALLET_PRIVATE_KEY=${DOCKER_WALLET_PRIVATE_KEY_THREE}
     ports:
       - "5003:5000"  # Mapping to different ports for each edge node
