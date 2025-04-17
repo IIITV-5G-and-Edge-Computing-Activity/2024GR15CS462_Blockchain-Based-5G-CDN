@@ -158,7 +158,7 @@ async function fetchAndServeChunks(cid, req, res) {
 app.listen(PORT, async () => {
   console.log(`🚀 Edge Node Running on Port ${PORT}`);
 
-  const walletPrivateKey = process.env.EDGE_NODE_WALLET_PRIVATE_KEY;
+  const walletPrivateKey = process.env.DOCKER_WALLET_ONE;
   if (!walletPrivateKey) {
     console.error("❌ No wallet private key set in environment variables");
     process.exit(1);
