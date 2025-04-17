@@ -150,7 +150,7 @@ npm run dev
 
 #### Get API Keys from Pinata
 
-### Create `.env` in `frontend/`
+### Create `.env` in in both `frontend/` and `backend/` directories.
 
 ```env
 VITE_CONTRACT_ADDRESS=your_contract_address
@@ -158,7 +158,13 @@ VITE_PINATA_API_KEY=your_pinata_api_key
 VITE_PINATA_SECRET_API_KEY=your_pinata_secret_key
 ```
 
-- Restart Vite react server after saving.
+```env
+PINATA_API_KEY=your_pinata_api_key
+PINATA_SECRET_KEY=your_pinata_secret_key
+EDGE_NODE_WALLET_PRIVATE_KEY=your_edge_node_wallet_private_key
+```
+
+- Restart `React` and `edgeNode.js` server after saving.
 
 
 ---
