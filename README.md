@@ -90,7 +90,8 @@ This project is a decentralized content delivery network (CDN) built on the Ethe
 
 ```bash
 git clone https://github.com/Devrikh/Blockchain-Based-5G-CDN.git
-cd blockchain-cdn
+cd Blockchain-Based-5G-CDN
+git checkout dev 
 ```
 
 ### 2. Install Dependencies
@@ -122,7 +123,7 @@ cd ..
 
 - Get API Keys from [Pinata](https://pinata.cloud/).
 
-### Create `.env` in in both `frontend/` and `backend/` directories.
+### Create `.env` in both `frontend/` and `backend/` directories.
 
 ```env
 VITE_CONTRACT_ADDRESS=your_contract_address
