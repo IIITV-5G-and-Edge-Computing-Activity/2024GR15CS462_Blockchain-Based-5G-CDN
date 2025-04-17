@@ -86,7 +86,7 @@ cd blockchain-cdn
 ```
 
 ### 2. Install Dependencies
-- Root-level (if needed):
+- Root-level:
 
 ```bash
 npm install
@@ -97,12 +97,12 @@ npm install
 ```bash
 cd frontend
 npm install
+cd ..
 ```
 
 - Backend:
 
 ```bash
-cd ..
 cd backend
 npm install
 cd ..
@@ -115,7 +115,7 @@ cd ..
 ### 🧪 Start Hardhat Local Blockchain
 
 ```bash
-npx hardhat node
+npx hardhat node --hostname 0.0.0.0
 ```
 
 ### 🧾 Deploy the Smart Contract
@@ -135,12 +135,14 @@ node backend/server.js
 ```bash
 node backend/edgeNode.js
 ```
+> ⚠️ Note: This will start a single edge node server locally for testing purposes.
+If you want to simulate multiple edge nodes, skip this step and follow the instructions in the [🐳 Dockerizing Edge Nodes](https://github.com/Devrikh/Blockchain-Based-5G-CDN/edit/dev/README.md#-dockerizing-edge-nodes) section.
 
 ### 🎨 Start Frontend
 
 ```bash
 cd frontend
-npm run dev
+npm run dev -- --host 0.0.0.0
 ```
 
 ---
@@ -148,11 +150,12 @@ npm run dev
 
 ## 📦 IPFS via Pinata
 
-#### Get API Keys from Pinata
+- Get API Keys from [Pinata](https://pinata.cloud/).
 
 ### Create `.env` in in both `frontend/` and `backend/` directories.
 
 ```env
+
 VITE_CONTRACT_ADDRESS=your_contract_address
 VITE_PINATA_API_KEY=your_pinata_api_key
 VITE_PINATA_SECRET_API_KEY=your_pinata_secret_key
@@ -161,7 +164,10 @@ VITE_PINATA_SECRET_API_KEY=your_pinata_secret_key
 ```env
 PINATA_API_KEY=your_pinata_api_key
 PINATA_SECRET_KEY=your_pinata_secret_key
-EDGE_NODE_WALLET_PRIVATE_KEY=your_edge_node_wallet_private_key
+DOCKER_WALLET_ONE=your_private_key_for_edge_node_1
+DOCKER_WALLET_TWO=your_private_key_for_edge_node_2
+DOCKER_WALLET_THREE=your_private_key_for_edge_node_3
+
 ```
 
 - Restart `React` and `edgeNode.js` server after saving.
@@ -172,15 +178,57 @@ EDGE_NODE_WALLET_PRIVATE_KEY=your_edge_node_wallet_private_key
 
 ## 🐳 Dockerizing Edge Nodes
 
-### Get API Keys from Pinata
+### 📁 Set Up `.env` File for Wallets
+- Inside the `backend/` directory, make sure a file named `.env` exists:
 
-### Create `.env` in `frontend/`
-
-```env
-VITE_CONTRACT_ADDRESS=your_contract_address
-VITE_PINATA_API_KEY=your_pinata_api_key
-VITE_PINATA_SECRET_API_KEY=your_pinata_secret_key
+### 🛠️ Build Docker Containers
+- From inside the `backend/` directory:
+```bash
+docker-compose build
 ```
+- This will use the `Dockerfile` to build images for each edge node.
+
+### 🚀 Start Edge Nodes
+
+- To start all edge node containers and see their output:
+
+```bash
+docker-compose up 
+```
+
+- To run in detached/background mode:
+
+```bash
+docker-compose upm -d
+```
+
+### 🔍 Monitor Logs
+
+- To see logs for all services:
+
+```bash
+docker-compose logs -f
+```
+
+- To see logs for a specific edge node (e.g. edge_node_2):
+
+```
+docker-compose logs -f edge_node_2
+```
+
+
+### 🛑 Shut Down Edge Nodes 
+
+- If you are done with simulation, run:
+```bash
+docker-compose down
+```
+- This stops and removes containers (but not images or volumes).
+
+
+
+
+
 
 
 
