@@ -20,7 +20,7 @@ if (!fs.existsSync(CACHE_DIR)) {
   fs.mkdirSync(CACHE_DIR);
 }
 
-const provider = new ethers.JsonRpcProvider("http://172.20.40.31:8545");
+const provider = new ethers.JsonRpcProvider(process.env.JSONPROVIDERURI);
 const contractAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
 const contractABI = require("./src/VideoCDN.json");
 
