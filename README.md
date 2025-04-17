@@ -117,10 +117,12 @@ cd ..
 ### Create `.env` in in both `frontend/` and `backend/` directories.
 
 ```env
-
 VITE_CONTRACT_ADDRESS=your_contract_address
 VITE_PINATA_API_KEY=your_pinata_api_key
 VITE_PINATA_SECRET_API_KEY=your_pinata_secret_key
+VITE_WALLET_ONE=wallet_one
+VITE_WALLET_TWO=wallet_two
+VITE_WALLET_THREE=wallet_three
 ```
 
 ```env
@@ -129,6 +131,7 @@ PINATA_SECRET_KEY=your_pinata_secret_key
 DOCKER_WALLET_ONE=your_private_key_for_edge_node_1
 DOCKER_WALLET_TWO=your_private_key_for_edge_node_2
 DOCKER_WALLET_THREE=your_private_key_for_edge_node_3
+CONTRACT_ADDRESS=contract_address
 
 ```
 > ⚠️ Note: Obtain your wallet addresses from [Hardhat Blockchain](#-start-hardhat-local-blockchain)
