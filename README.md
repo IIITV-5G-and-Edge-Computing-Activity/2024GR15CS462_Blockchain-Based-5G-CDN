@@ -110,6 +110,31 @@ cd ..
 
 ---
 
+## 📦 IPFS via Pinata
+
+- Get API Keys from [Pinata](https://pinata.cloud/).
+
+### Create `.env` in in both `frontend/` and `backend/` directories.
+
+```env
+
+VITE_CONTRACT_ADDRESS=your_contract_address
+VITE_PINATA_API_KEY=your_pinata_api_key
+VITE_PINATA_SECRET_API_KEY=your_pinata_secret_key
+```
+
+```env
+PINATA_API_KEY=your_pinata_api_key
+PINATA_SECRET_KEY=your_pinata_secret_key
+DOCKER_WALLET_ONE=your_private_key_for_edge_node_1
+DOCKER_WALLET_TWO=your_private_key_for_edge_node_2
+DOCKER_WALLET_THREE=your_private_key_for_edge_node_3
+
+```
+> ⚠️ Note: Obtain your wallet addresses from [Hardhat Blockchain](#-start-hardhat-local-blockchain)
+
+---
+
 ## ⚙️ Setup Instructions
 
 ### 🧪 Start Hardhat Local Blockchain
@@ -136,7 +161,7 @@ node backend/server.js
 node backend/edgeNode.js
 ```
 > ⚠️ Note: This will start a single edge node server locally for testing purposes.
-If you want to simulate multiple edge nodes, skip this step and follow the instructions in the [🐳 Dockerizing Edge Nodes](https://github.com/Devrikh/Blockchain-Based-5G-CDN/edit/dev/README.md#-dockerizing-edge-nodes) section.
+If you want to simulate multiple edge nodes, skip this step and follow the instructions in the [🐳 Dockerizing Edge Nodes](#-dockerizing-edge-nodes) section.
 
 ### 🎨 Start Frontend
 
@@ -144,34 +169,6 @@ If you want to simulate multiple edge nodes, skip this step and follow the instr
 cd frontend
 npm run dev -- --host 0.0.0.0
 ```
-
----
-
-
-## 📦 IPFS via Pinata
-
-- Get API Keys from [Pinata](https://pinata.cloud/).
-
-### Create `.env` in in both `frontend/` and `backend/` directories.
-
-```env
-
-VITE_CONTRACT_ADDRESS=your_contract_address
-VITE_PINATA_API_KEY=your_pinata_api_key
-VITE_PINATA_SECRET_API_KEY=your_pinata_secret_key
-```
-
-```env
-PINATA_API_KEY=your_pinata_api_key
-PINATA_SECRET_KEY=your_pinata_secret_key
-DOCKER_WALLET_ONE=your_private_key_for_edge_node_1
-DOCKER_WALLET_TWO=your_private_key_for_edge_node_2
-DOCKER_WALLET_THREE=your_private_key_for_edge_node_3
-
-```
-
-- Restart `React` and `edgeNode.js` server after saving.
-
 
 ---
 
