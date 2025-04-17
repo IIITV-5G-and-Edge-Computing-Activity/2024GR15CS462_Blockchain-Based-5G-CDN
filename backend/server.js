@@ -21,7 +21,7 @@ let clients = new Set();
 // Blockchain Setup
 const contractAddress = process.env.CONTRACT_ADDRESS;
 const contractABI = require("../artifacts/contracts/VideoCDN.sol/VideoCDN.json");
-const provider = new ethers.JsonRpcProvider("http://127.0.0.1:8545");
+const provider = new ethers.JsonRpcProvider("http://172.20.40.31:8545");
 const contract = new ethers.Contract(contractAddress, contractABI.abi, provider);
 
 // Track Edge Nodes
