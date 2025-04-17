@@ -1,9 +1,18 @@
-# ⚡ Blockchain-based CDN using React, IPFS, Smart Contracts & Dockerized Edge Nodes
+# ⚡ Blockchain-Based 5G Content Delivery Network (CDN)
 
 This project is a decentralized content delivery network (CDN) built on the Ethereum blockchain. It allows users to upload and purchase videos via smart contracts, store video files on IPFS, and distribute them through Dockerized edge nodes that simulate caching and content delivery.
 
 ---
 
+## 😃 Team Members:
+
+- ####  Devrikh Jatav                    202211018
+- ####  Chinchkar Sneha  Achyut          202211013
+- ####  Inarat Hussain                   202211030
+- ####  Suryansh Singh Raghuvansh        202211093
+
+
+---
 ## 🧰 Tech Stack
 
 ### 🎨 Frontend
@@ -33,8 +42,7 @@ This project is a decentralized content delivery network (CDN) built on the Ethe
 - ✅ Register as an edge node
 - ✅ Claim earnings as edge node
 - ✅ Dockerized edge node server (caching simulation)
-- ❌ No WebSockets (planned)
-- 📶 5G integration is **planned** for later stages
+- 📶 5G integration is **planned** 
 
 ---
 
