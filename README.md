@@ -126,6 +126,7 @@ cd ..
 ### Create `.env` in both `frontend/` and `backend/` directories.
 
 ```env
+#FRONTEND
 VITE_CONTRACT_ADDRESS=your_contract_address
 VITE_PINATA_API_KEY=your_pinata_api_key
 VITE_PINATA_SECRET_API_KEY=your_pinata_secret_key
@@ -135,15 +136,16 @@ VITE_WALLET_THREE=wallet_three
 ```
 
 ```env
+#BACKEND
 PINATA_API_KEY=your_pinata_api_key
 PINATA_SECRET_KEY=your_pinata_secret_key
 DOCKER_WALLET_ONE=your_private_key_for_edge_node_1
 DOCKER_WALLET_TWO=your_private_key_for_edge_node_2
 DOCKER_WALLET_THREE=your_private_key_for_edge_node_3
 CONTRACT_ADDRESS=contract_address
-
+JSONPROVIDERURI=RPC_URL
 ```
-> ⚠️ Note: Obtain your wallet addresses from [Hardhat Blockchain](#-start-hardhat-local-blockchain)
+> ⚠️ Note: Obtain your wallet addresses and RPC from [Hardhat Blockchain](#-start-hardhat-local-blockchain)
 
 ---
 
@@ -161,7 +163,7 @@ npx hardhat node --hostname 0.0.0.0
 npx hardhat run scripts/deploy.js --network localhost
 ```
 
-### 🖥️ Start Backend Server
+### 🖥️ Start Backend Server (😭 SKIP FOR NOW)
 
 ```bash
 node backend/server.js
@@ -172,15 +174,24 @@ node backend/server.js
 ```bash
 node backend/edgeNode.js
 ```
-> ⚠️ Note: This will start a single edge node server locally for testing purposes. Also, change IPs and Ports in `/frontend/src/assets/edgeNodeMap.js` accordingly 
-If you want to simulate multiple edge nodes, skip this step and follow the instructions in the [🐳 Dockerizing Edge Nodes](#-dockerizing-edge-nodes) section.
-
+> ⚠️ Note: This will start a single edge node server locally for testing purposes.
+> Also, Change the line `const walletPrivateKey = process.env.EDGE_NODE_WALLET_PRIVATE_KEY;` to `const walletPrivateKey = process.env.DOCKER_WALLET_PRIVATE_KEY_ONE;`
+- If you want to simulate multiple edge nodes, skip this step and follow the instructions in the [🐳 Dockerizing Edge Nodes](#-dockerizing-edge-nodes) section. Before that, change IPs and Ports in `/frontend/src/assets/edgeNodeMap.js` accordingly.
+   
 ### 🎨 Start Frontend
 
 ```bash
 cd frontend
 npm run dev -- --host 0.0.0.0
 ```
+
+### 🎥 Deploy Videos
+
+```bash
+npx hardhat run scripts/uploadVideo.js --network localhost
+```
+> ⚠️ Note: Only for UI Testing , uses fake IPFS Hash.
+
 
 ---
 
