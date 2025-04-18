@@ -21,7 +21,7 @@ if (!fs.existsSync(CACHE_DIR)) {
 }
 
 const provider = new ethers.JsonRpcProvider(process.env.JSONPROVIDERURI);
-const contractAddress = process.env.CONTRACTADDRESS;
+const contractAddress = process.env.CONTRACT_ADDRESS;
 const contractABI = require("./src/VideoCDN.json");
 
 // In-memory cache for video chunks (short TTL)
@@ -158,7 +158,7 @@ async function fetchAndServeChunks(cid, req, res) {
 app.listen(PORT, async () => {
   console.log(`🚀 Edge Node Running on Port ${PORT}`);
 
-  const walletPrivateKey = process.env.DOCKER_WALLET_PRIVATE_KEY_ONE;
+  const walletPrivateKey = process.env.EDGE_NODE_WALLET_PRIVATE_KEY;
   if (!walletPrivateKey) {
     console.error("❌ No wallet private key set in environment variables");
     process.exit(1);
